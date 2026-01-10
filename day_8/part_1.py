@@ -18,9 +18,6 @@ class Node:
     def __hash__(self):
         return hash(self.coords)
 
-    def euclidean_distance(self, other):
-        return math.sqrt(sum((a - b) ** 2 for a, b in zip(self.coords, other.coords)))
-
 
 @dataclass
 class Connection:
@@ -38,7 +35,7 @@ for node_a, node_b in combinations(nodes, 2):
     connection = Connection(
         node_a=node_a,
         node_b=node_b,
-        distance=node_a.euclidean_distance(node_b)
+        distance=math.dist(node_a.coords, node_b.coords)
     )
 
     bisect.insort(connections, connection, key=lambda c: c.distance)
